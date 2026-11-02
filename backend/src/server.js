@@ -3,12 +3,14 @@ const cors = require("cors");
 require("dotenv").config();
 
 const searchRoutes = require("./routes/searchRoutes");
+const emailRoutes = require("./routes/emailRoutes");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+// Health check
 app.get("/api/health", (req, res) => {
     res.json({
         status: "success",
@@ -16,7 +18,11 @@ app.get("/api/health", (req, res) => {
     });
 });
 
+// Search routes
 app.use("/api/search", searchRoutes);
+
+// Email / authentication notification routes
+app.use("/api/email", emailRoutes);
 
 const PORT = process.env.PORT || 5000;
 
